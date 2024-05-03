@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1714635257,
+        "narHash": "sha256-4cPymbty65RvF1DWQfc+Bc8B233A1BWxJnNULJKQ1EY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "63c3a29ca82437c87573e4c6919b09a24ea61b0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "plover-update": {
+      "locked": {
+        "lastModified": 1714371516,
+        "narHash": "sha256-MA545Hf1h8ez1joKIfPvpxmR2dUjvHJ7SukIbgdWXl0=",
+        "owner": "FirelightFlagboy",
+        "repo": "nixpkgs",
+        "rev": "83c4b4366d9dab01f807b9e279e99f92952d5e68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FirelightFlagboy",
+        "ref": "update-plover-4.0.0.dev12",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "plover-update": "plover-update"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
