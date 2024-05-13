@@ -11,7 +11,13 @@
       system = "x86_64-linux";
 
       overlay = final: prev: {
-        plover.dev = plover-update.legacyPackages.${prev.system}.plover.dev;
+        plover.dev = plover-update.legacyPackages.${prev.system}.plover.dev.overrideAttrs (
+          old: {
+            patches = [
+              ./patches/plover/log-steno-engine.patch
+            ];
+          }
+        );
       };
 
       pkgs = import nixpkgs {
@@ -46,6 +52,11 @@
             rev = "25e7df1a116672163256ccef85cfd91f7e76b9cf";
             sha256 = "sha256-Fl4/MmXS3NZqgR1E/vl8iJizSeRyhDLH4bhLy92upqY=";
           };
+
+          patches = [
+            ./patches/plover-output-dotool/log-have-output-plugin.patch
+            ./patches/plover-output-dotool/missing-set-key-press-delay.patch
+          ];
 
           buildInputs = [ plover-base ];
           dontWrapQtApps = true;

@@ -1,0 +1,20 @@
+diff --git a/plover/engine.py b/plover/engine.py
+index cc83c52..97f9781 100644
+--- a/plover/engine.py
++++ b/plover/engine.py
+@@ -119,6 +119,7 @@ class StenoEngine:
+         self._dictionaries_manager = DictionaryLoadingManager()
+         self._running_state = self._translator.get_state()
+         self._translator.clear_state()
++        log.info(f"Init Steno Engine with: {keyboard_emulation!r} ({type(keyboard_emulation)})")
+         self._keyboard_emulation = keyboard_emulation
+         self._hooks = { hook: [] for hook in self.HOOKS }
+         self._running_extensions = {}
+@@ -211,6 +212,7 @@ class StenoEngine:
+         self._formatter.start_attached = config['start_attached']
+         self._formatter.start_capitalized = config['start_capitalized']
+         self._translator.set_min_undo_length(config['undo_levels'])
++        log.info(f"Update Steno Engine, current keyboard: {self._keyboard_emulation!r} ({type(self._keyboard_emulation)})")
+         self._keyboard_emulation.set_key_press_delay(config['time_between_key_presses'])
+         # Update system.
+         system_name = config['system_name']

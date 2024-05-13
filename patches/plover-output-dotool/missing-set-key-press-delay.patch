@@ -1,0 +1,14 @@
+diff --git a/plover_output_dotool/__init__.py b/plover_output_dotool/__init__.py
+index 86a0cf7..43c84fb 100644
+--- a/plover_output_dotool/__init__.py
++++ b/plover_output_dotool/__init__.py
+@@ -105,7 +107,8 @@ class KeyboardEmulation(*([KeyboardEmulationBase] if have_output_plugin else [])
+             # Send keyup and then keydown to avoid clashes
+             self._dotool(arg + k)
+
+-
++    def set_key_press_delay(self, delay_ms):
++        pass
+
+     def send_backspaces(self, n):
+         self._dotool_string("\b" * n)
