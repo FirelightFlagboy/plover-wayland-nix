@@ -11,7 +11,13 @@
       system = "x86_64-linux";
 
       overlay = final: prev: {
-        plover.dev = plover-update.legacyPackages.${prev.system}.plover.dev;
+        plover.dev = plover-update.legacyPackages.${prev.system}.plover.dev.overrideAttrs (
+          old: {
+            patches = [
+              ./patches/plover/log-steno-engine.patch
+            ];
+          }
+        );
       };
 
       pkgs = import nixpkgs {
