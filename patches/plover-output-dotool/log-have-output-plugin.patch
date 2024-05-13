@@ -1,0 +1,13 @@
+diff --git a/plover_output_dotool/__init__.py b/plover_output_dotool/__init__.py
+index 86a0cf7..c9ab1d2 100644
+--- a/plover_output_dotool/__init__.py
++++ b/plover_output_dotool/__init__.py
+@@ -23,6 +23,8 @@ try:
+ except ImportError:
+     pass
+ 
++log.info(f"Have output plugin ? {have_output_plugin}")
++
+ class Main:
+     def __init__(self, engine):
+         self._engine = engine

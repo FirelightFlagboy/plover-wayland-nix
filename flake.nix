@@ -53,6 +53,11 @@
             sha256 = "sha256-Fl4/MmXS3NZqgR1E/vl8iJizSeRyhDLH4bhLy92upqY=";
           };
 
+          patches = [
+            ./patches/plover-output-dotool/log-have-output-plugin.patch
+            ./patches/plover-output-dotool/missing-set-key-press-delay.patch
+          ];
+
           buildInputs = [ plover-base ];
           dontWrapQtApps = true;
           propagatedBuildInputs = [ pkgs.dotool ];
