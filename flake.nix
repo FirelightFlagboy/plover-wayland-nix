@@ -25,6 +25,25 @@
     in
     {
       packages.${system} = rec {
+        plover-uinput-output = pkgs.python310Packages.buildPythonPackage {
+          name = "plover-uinput-output";
+          src = pkgs.fetchFromGitHub {
+            owner = "LilleAila";
+            repo = "plover-uinput";
+            rev = "a7b67b037e498f9783d5324b78e9d94cefb43b14";
+            sha256 = "1cnzfcy7xwwvb225zg03kdwhi768pya4xwyrahr7dnas7m4fv3jx";
+            leaveDotGit = true;
+            sparseCheckout = [
+              "plover_uinput"
+              "setup.cfg"
+              "setup.py"
+              "pyproject.toml"
+            ];
+          };
+
+          buildInputs = [ plover-base ];
+          dontWrapQtApps = true;
+        };
         plover-wtype-output = pkgs.python310Packages.buildPythonPackage {
           name = "plover-wtype-output";
           src = pkgs.fetchFromGitHub {
@@ -52,6 +71,8 @@
           propagatedBuildInputs = [ pkgs.dotool ];
         };
         plover.dev = plover-base;
+        plover-uinput = plover-base.overrideAttrs
+          (old: { propagatedBuildInputs = old.propagatedBuildInputs ++ [ plover-uinput-output ]; });
         plover-wtype = plover-base.overrideAttrs
           (old: { propagatedBuildInputs = old.propagatedBuildInputs ++ [ plover-wtype-output ]; });
         plover-dotool = plover-base.overrideAttrs
