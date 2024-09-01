@@ -18,11 +18,11 @@
     },
     "plover-update": {
       "locked": {
-        "lastModified": 1714371516,
-        "narHash": "sha256-MA545Hf1h8ez1joKIfPvpxmR2dUjvHJ7SukIbgdWXl0=",
+        "lastModified": 1725204046,
+        "narHash": "sha256-oidkpNBN5/oukD+SX3UMU8OKAFKxn907G+cz0QUTKGc=",
         "owner": "FirelightFlagboy",
         "repo": "nixpkgs",
-        "rev": "83c4b4366d9dab01f807b9e279e99f92952d5e68",
+        "rev": "514092d89804d96daafaa22a5aa94143bb2e67a5",
         "type": "github"
       },
       "original": {
