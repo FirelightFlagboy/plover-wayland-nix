@@ -16,26 +16,9 @@
         "type": "github"
       }
     },
-    "plover-update": {
-      "locked": {
-        "lastModified": 1725204046,
-        "narHash": "sha256-oidkpNBN5/oukD+SX3UMU8OKAFKxn907G+cz0QUTKGc=",
-        "owner": "FirelightFlagboy",
-        "repo": "nixpkgs",
-        "rev": "514092d89804d96daafaa22a5aa94143bb2e67a5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "FirelightFlagboy",
-        "ref": "update-plover-4.0.0.dev12",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "plover-update": "plover-update"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

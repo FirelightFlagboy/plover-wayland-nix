@@ -3,20 +3,44 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    plover-update.url = "github:FirelightFlagboy/nixpkgs/update-plover-4.0.0.dev12";
   };
 
-  outputs = { self, nixpkgs, plover-update }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+    }:
     let
       system = "x86_64-linux";
 
-      overlay = final: prev: {
-        plover.dev = plover-update.legacyPackages.${prev.system}.plover.dev;
+      pkgsPrePatch = import nixpkgs {
+        inherit system;
       };
 
-      pkgs = import nixpkgs {
+      patches = [
+        # Update plover from 4.0.0.dev10 to 4.0.0.dev12
+        (pkgsPrePatch.fetchpatch {
+          url = "https://github.com/NixOS/nixpkgs/commit/37f589b5fef07ea8bb110afac4abc13a1f7e59a9.patch";
+          sha256 = "1bmn11dggzk3j59pzxl9gsryl35njblm3h6ag5v87wsga1ph1001";
+        })
+        # Update plover from 4.0.0.dev12 to 4.0.0.rc2
+        (pkgsPrePatch.fetchpatch {
+          url = "https://github.com/NixOS/nixpkgs/commit/634e203d1c07115763a5759b53ce4e9805c8663a.patch";
+          sha256 = "1zh4gilpr29f381aa51a3irv13cxybp4rcdi1fww1ihh54yhmk37";
+        })
+        # Remove `plover.stable`
+        (pkgsPrePatch.fetchpatch {
+          url = "https://github.com/NixOS/nixpkgs/pull/303669/commits/30ef197717d8ec87fab88c56e63e4a347bf90e31.patch";
+          sha256 = "01aqbglla8wvvj6ppy9vim6gj6zyxcqja47bsflpjc5nark666hp";
+        })
+      ];
+
+      pkgsPatched = pkgsPrePatch.applyPatches {
+        src = pkgsPrePatch.path;
+        inherit patches;
+      };
+      pkgs = import pkgsPatched {
         inherit system;
-        overlays = [ overlay ];
       };
 
       plover-base = pkgs.plover.dev;
@@ -52,14 +76,20 @@
           propagatedBuildInputs = [ pkgs.dotool ];
         };
         plover.dev = plover-base;
-        plover-wtype = plover-base.overrideAttrs
-          (old: { propagatedBuildInputs = old.propagatedBuildInputs ++ [ plover-wtype-output ]; });
-        plover-dotool = plover-base.overrideAttrs
-          (old: { propagatedBuildInputs = old.propagatedBuildInputs ++ [ plover-dotool-output ]; });
+        plover-wtype = plover-base.overrideAttrs (old: {
+          propagatedBuildInputs = old.propagatedBuildInputs ++ [ plover-wtype-output ];
+        });
+        plover-dotool = plover-base.overrideAttrs (old: {
+          propagatedBuildInputs = old.propagatedBuildInputs ++ [ plover-dotool-output ];
+        });
       };
 
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [ plover-base self-pkgs.plover-wtype-output self-pkgs.plover-dotool-output ];
+        buildInputs = with pkgs; [
+          plover-base
+          self-pkgs.plover-wtype-output
+          self-pkgs.plover-dotool-output
+        ];
       };
     };
 }
