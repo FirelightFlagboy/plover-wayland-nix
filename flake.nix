@@ -30,7 +30,7 @@
         })
         # Remove `plover.stable`
         (pkgsPrePatch.fetchpatch {
-          url = "https://github.com/NixOS/nixpkgs/pull/303669/commits/30ef197717d8ec87fab88c56e63e4a347bf90e31.patch";
+          url = "https://github.com/NixOS/nixpkgs/commits/30ef197717d8ec87fab88c56e63e4a347bf90e31.patch";
           sha256 = "01aqbglla8wvvj6ppy9vim6gj6zyxcqja47bsflpjc5nark666hp";
         })
       ];
